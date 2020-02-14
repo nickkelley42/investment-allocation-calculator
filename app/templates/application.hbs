@@ -1,5 +1,41 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<h1>Asset Allocation Calculator</h1>
+
+<p>Enter the numbers you have; the other values will update accordingly.</p>
+
+<ul>
+
+  <li>
+    <span>Target bond weight (0-1):</span>
+    <Input @value={{targetBondAllocation}} />
+  </li>
+
+  <li>
+    <span>Current stocks value:</span>
+    <Input @value={{computedStocks}} />
+  </li>
+
+  <li>
+    <span>Current bonds value:</span>
+    <Input @value={{computedBonds}} />
+  </li>
+
+  <li>
+    Current Bond Allocation: {{currentBondAllocation}}
+  </li>
+
+  <li>
+    <span>Purchase amount:</span>
+    <Input @value={{computedPurchaseAmount}} />
+  </li>
+
+  <li>
+    Stocks to buy: {{stocksPurchaseAmount}}
+  </li>
+
+  <li>
+    Bonds to buy: {{bondsPurchaseAmount}}
+  </li>
+
+</ul>
 
 {{outlet}}
