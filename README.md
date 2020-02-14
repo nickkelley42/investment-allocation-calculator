@@ -1,7 +1,8 @@
 # investment-allocation-calculator
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a simple asset allocation calculator. The goal is to make it 
+easy to determine purchase amounts to hit a target stock/bond ratio in 
+your portfolio.
 
 ## Prerequisites
 
