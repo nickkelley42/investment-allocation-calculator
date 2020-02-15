@@ -93,11 +93,14 @@ export default Controller.extend({
     "targetBondAllocation",
     "purchaseAmount",
     function() {
+      let purchaseAmount = this.get("purchaseAmount");
+      assert("purchaseAmount is a number", typeof purchaseAmount === "number");
+      assert("purchaseAmount is non-negative", purchaseAmount >= 0);
+      if (purchaseAmount === 0) return 0;
+
       let stocks = this.get("currentStocks");
       let bonds = this.get("currentBonds");
       let targetBondAllocation = this.get("targetBondAllocation");
-      let purchaseAmount = this.get("purchaseAmount");
-
       assert("stocks is a number", typeof stocks === "number");
       assert("stocks is non-negative", stocks >= 0);
       assert("bonds is a number", typeof bonds === "number");
@@ -105,12 +108,16 @@ export default Controller.extend({
       assert("targetBondAllocation is a number", typeof targetBondAllocation === "number");
       assert("targetBondAllocation is non-negative", targetBondAllocation >= 0);
       assert("targetBondAllocation is less than or equal to 1", targetBondAllocation <= 1);
-      assert("purchaseAmount is a number", typeof purchaseAmount === "number");
-      assert("purchaseAmount is non-negative", purchaseAmount >= 0);
 
       let purchase = targetBondAllocation * (bonds + stocks + purchaseAmount) - bonds;
-      purchase = purchase < 0 ? 0 : purchase;
+      if (purchase < 0) {
+        purchase = 0;
+      } else if (purchase > purchaseAmount) {
+        purchase = purchaseAmount;
+      }
+
       assert("purchase is non-negative", purchase >= 0);
+      assert("purchase is less than or equal to purchaseAmount", purchase <= purchaseAmount);
 
       return purchase;
     }
@@ -122,13 +129,17 @@ export default Controller.extend({
     "targetBondAllocation",
     "purchaseAmount",
     function() {
-      let bondsPurchaseAmount = this.get("bondsPurchaseAmount");
       let purchaseAmount = this.get("purchaseAmount");
 
       assert("purchaseAmount is a number", typeof purchaseAmount === "number");
       assert("purchaseAmount is non-negative", purchaseAmount >= 0);
+      if (purchaseAmount === 0) return 0;
+
+      let bondsPurchaseAmount = this.get("bondsPurchaseAmount");
       assert("bondsPurchaseAmount is a number", typeof bondsPurchaseAmount === "number");
       assert("bondsPurchaseAmount is non-negative", bondsPurchaseAmount >= 0);
+
+
 
       let purchase = purchaseAmount - bondsPurchaseAmount;
       assert("purchase is non-negative", purchase >= 0);
